@@ -62,7 +62,7 @@ void DLXFrameLowering::determineFrameLayout(MachineFunction &MF) const {
 // ADJDYNALLOC pseudo instructions with a DLX:ADDI with the
 // maximum call frame size as the immediate.
 void DLXFrameLowering::replaceAdjDynAllocPseudo(MachineFunction &MF) const {
-  const DLXInstrInfo &LII =
+  /*const DLXInstrInfo &LII =
       *static_cast<const DLXInstrInfo *>(STI.getInstrInfo());
   unsigned MaxCallFrameSize = MF.getFrameInfo().getMaxCallFrameSize();
 
@@ -82,7 +82,7 @@ void DLXFrameLowering::replaceAdjDynAllocPseudo(MachineFunction &MF) const {
         MI.eraseFromParent();
       }
     }
-  }
+  }*/
 }
 
 // Generates the following sequence for function entry:
@@ -91,7 +91,7 @@ void DLXFrameLowering::replaceAdjDynAllocPseudo(MachineFunction &MF) const {
 //   sub %sp,0x4,%sp        !allocate stack space (as needed)
 void DLXFrameLowering::emitPrologue(MachineFunction &MF,
                                       MachineBasicBlock &MBB) const {
-  assert(&MF.front() == &MBB && "Shrink-wrapping not yet supported");
+  /*assert(&MF.front() == &MBB && "Shrink-wrapping not yet supported");
 
   MachineFrameInfo &MFI = MF.getFrameInfo();
   const DLXInstrInfo &LII =
@@ -136,7 +136,7 @@ void DLXFrameLowering::emitPrologue(MachineFunction &MF,
 
   // Replace ADJDYNANALLOC
   if (MFI.hasVarSizedObjects())
-    replaceAdjDynAllocPseudo(MF);
+    replaceAdjDynAllocPseudo(MF);*/
 }
 
 MachineBasicBlock::iterator DLXFrameLowering::eliminateCallFramePseudoInstr(
@@ -178,7 +178,7 @@ MachineBasicBlock::iterator DLXFrameLowering::eliminateCallFramePseudoInstr(
 // instructions execute in the delay slots of the load to PC.
 void DLXFrameLowering::emitEpilogue(MachineFunction & /*MF*/,
                                       MachineBasicBlock &MBB) const {
-  MachineBasicBlock::iterator MBBI = MBB.getLastNonDebugInstr();
+/*  MachineBasicBlock::iterator MBBI = MBB.getLastNonDebugInstr();
   const DLXInstrInfo &LII =
       *static_cast<const DLXInstrInfo *>(STI.getInstrInfo());
   DebugLoc DL = MBBI->getDebugLoc();
@@ -192,7 +192,7 @@ void DLXFrameLowering::emitEpilogue(MachineFunction & /*MF*/,
   BuildMI(MBB, MBBI, DL, LII.get(DLX::LDW_RI), DLX::FP)
       .addReg(DLX::FP)
       .addImm(-8)
-      .addImm(LPAC::ADD);
+      .addImm(LPAC::ADD);*/
 }
 
 void DLXFrameLowering::determineCalleeSaves(MachineFunction &MF,

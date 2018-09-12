@@ -15,9 +15,6 @@ void DLXMachineFunctionInfo::anchor() {}
 
 unsigned DLXMachineFunctionInfo::getGlobalBaseReg() {
   // Return if it has already been initialized.
-  if (GlobalBaseReg)
-    return GlobalBaseReg;
 
-  return GlobalBaseReg =
-             MF.getRegInfo().createVirtualRegister(&DLX::GPRRegClass);
+    return GlobalBaseReg;
 }

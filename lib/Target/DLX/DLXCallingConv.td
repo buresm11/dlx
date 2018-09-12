@@ -15,36 +15,22 @@
 // Return Value Calling Conventions
 //===----------------------------------------------------------------------===//
 
-// DLX 32-bit C Calling convention.
-def CC_DLX32 : CallingConv<[
-  // Promote i8/i16 args to i32
-  CCIfType<[i8, i16], CCPromoteToType<i32>>,
+def CC_DLX : CallingConv<[
+  // Promote i8/i16 arguments to i32.
+  CCIfType<[i1, i8, i16], CCPromoteToType<i32>>,
 
-  // Put argument in registers if marked 'inreg' and not a vararg call.
-  CCIfNotVarArg<CCIfInReg<CCIfType<[i32],
-                                   CCAssignToReg<[R6, R7, R18, R19]>>>>,
-
-  // Otherwise they are assigned to the stack in 4-byte aligned units.
-  CCAssignToStack<4, 4>
+  // Integer values get stored in stack slots that are 4 bytes in
+  // size and 4-byte aligned.
+  CCIfType<[i32, f32], CCAssignToStack<4, 4>>
 ]>;
 
-// DLX 32-bit Fast Calling convention.
-def CC_DLX32_Fast : CallingConv<[
-  // Promote i8/i16 args to i32
-  CCIfType<[ i8, i16 ], CCPromoteToType<i32>>,
+// Only the return rules are defined here for O32. The rules for argument
+// passing are defined in MipsISelLowering.cpp.
+def RetCC_DLX : CallingConv<[
+  // Promote i1/i8/i16 return values to i32.
+  CCIfType<[i1, i8, i16], CCPromoteToType<i32>>,
 
-  // Put arguments in registers.
-  CCIfNotVarArg<CCIfType<[i32], CCAssignToReg<[ R6, R7, R18, R19 ]>>>,
-
-  // Otherwise they are assigned to the stack in 4-byte aligned units.
-  CCAssignToStack<4, 4>
+  // i32 are returned in registers V0, V1, A0, A1, unless the original return
+  // type was a vector of floats.
+  CCIfType<[i32],  CCAssignToReg<[R1]>>
 ]>;
-
-// DLX 32-bit C return-value convention.
-def RetCC_DLX32 : CallingConv<[
-  // Specify two registers to allow returning 64-bit results that have already
-  // been lowered to 2 32-bit values.
-  CCIfType<[i32], CCAssignToReg<[RV, R9]>>
-]>;
-
-def CSR: CalleeSavedRegs<(add)>;

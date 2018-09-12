@@ -314,7 +314,7 @@ void DLXDAGToDAGISel::Select(SDNode *Node) {
 }
 
 void DLXDAGToDAGISel::selectFrameIndex(SDNode *Node) {
-  SDLoc DL(Node);
+  /*SDLoc DL(Node);
   SDValue Imm = CurDAG->getTargetConstant(0, DL, MVT::i32);
   int FI = cast<FrameIndexSDNode>(Node)->getIndex();
   EVT VT = Node->getValueType(0);
@@ -324,7 +324,7 @@ void DLXDAGToDAGISel::selectFrameIndex(SDNode *Node) {
     CurDAG->SelectNodeTo(Node, Opc, VT, TFI, Imm);
     return;
   }
-  ReplaceNode(Node, CurDAG->getMachineNode(Opc, DL, VT, TFI, Imm));
+  ReplaceNode(Node, CurDAG->getMachineNode(Opc, DL, VT, TFI, Imm));*/
 }
 
 // createDLXISelDag - This pass converts a legalized DAG into a

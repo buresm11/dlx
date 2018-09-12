@@ -87,7 +87,7 @@ static DecodeStatus readInstruction32(ArrayRef<uint8_t> Bytes, uint64_t &Size,
 }
 
 static void PostOperandDecodeAdjust(MCInst &Instr, uint32_t Insn) {
-  unsigned AluOp = LPAC::ADD;
+/*  unsigned AluOp = LPAC::ADD;
   // Fix up for pre and post operations.
   int PqShift = -1;
   if (isRMOpcode(Instr.getOpcode()))
@@ -124,7 +124,7 @@ static void PostOperandDecodeAdjust(MCInst &Instr, uint32_t Insn) {
       break;
     }
     Instr.addOperand(MCOperand::createImm(AluOp));
-  }
+  }*/
 }
 
 DecodeStatus DLXDisassembler::getInstruction(
@@ -151,12 +151,12 @@ DecodeStatus DLXDisassembler::getInstruction(
 }
 
 static const unsigned GPRDecoderTable[] = {
-    DLX::R0,  DLX::R1,  DLX::PC,  DLX::R3,  DLX::SP,  DLX::FP,
-    DLX::R6,  DLX::R7,  DLX::RV,  DLX::R9,  DLX::RR1, DLX::RR2,
-    DLX::R12, DLX::R13, DLX::R14, DLX::RCA, DLX::R16, DLX::R17,
+    DLX::R0,  DLX::R1,  DLX::R2,  DLX::R3,  DLX::R4,  DLX::R5,
+    DLX::R6,  DLX::R7,  DLX::R8,  DLX::R9,  DLX::R10, DLX::R11,
+    DLX::R12, DLX::R13, DLX::R14, DLX::R15, DLX::R16, DLX::R17,
     DLX::R18, DLX::R19, DLX::R20, DLX::R21, DLX::R22, DLX::R23,
-    DLX::R24, DLX::R25, DLX::R26, DLX::R27, DLX::R28, DLX::R29,
-    DLX::R30, DLX::R31};
+    DLX::R24, DLX::R25, DLX::R26, DLX::R27, DLX::R28, DLX::FP,
+    DLX::SP, DLX::RA};
 
 DecodeStatus DecodeGPRRegisterClass(MCInst &Inst, unsigned RegNo,
                                     uint64_t /*Address*/,

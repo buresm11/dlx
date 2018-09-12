@@ -91,7 +91,7 @@ llvm::createDLXDelaySlotFillerPass(const DLXTargetMachine & /*tm*/) {
 // There is one or two delay slot per delayed instruction.
 bool Filler::runOnMachineBasicBlock(MachineBasicBlock &MBB) {
   bool Changed = false;
-  LastFiller = MBB.instr_end();
+  /*LastFiller = MBB.instr_end();
 
   for (MachineBasicBlock::instr_iterator I = MBB.instr_begin();
        I != MBB.instr_end(); ++I) {
@@ -138,7 +138,7 @@ bool Filler::runOnMachineBasicBlock(MachineBasicBlock &MBB) {
       // verifier doesn't expect this instruction to be a terminator.
       MIBundleBuilder(MBB, InstrWithSlot, std::next(LastFiller));
     }
-  }
+  }*/
   return Changed;
 }
 

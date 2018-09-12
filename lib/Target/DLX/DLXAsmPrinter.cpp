@@ -148,7 +148,7 @@ bool DLXAsmPrinter::PrintAsmOperand(const MachineInstr *MI, unsigned OpNo,
 
 //===----------------------------------------------------------------------===//
 void DLXAsmPrinter::emitCallInstruction(const MachineInstr *MI) {
-  assert((MI->getOpcode() == DLX::CALL || MI->getOpcode() == DLX::CALLR) &&
+  /*assert((MI->getOpcode() == DLX::CALL || MI->getOpcode() == DLX::CALLR) &&
          "Unsupported call function");
 
   DLXMCInstLower MCInstLowering(OutContext, *this);
@@ -184,7 +184,7 @@ void DLXAsmPrinter::emitCallInstruction(const MachineInstr *MI) {
                                      .addReg(DLX::R0)
                                      .addImm(LPCC::ICC_T),
                                  STI);
-  }
+  }*/
 }
 
 void DLXAsmPrinter::customEmitInstruction(const MachineInstr *MI) {

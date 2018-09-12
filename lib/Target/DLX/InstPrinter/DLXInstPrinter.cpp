@@ -105,7 +105,7 @@ bool DLXInstPrinter::printMemoryStoreIncrement(const MCInst *MI,
 }
 
 bool DLXInstPrinter::printAlias(const MCInst *MI, raw_ostream &OS) {
-  switch (MI->getOpcode()) {
+  /*switch (MI->getOpcode()) {
   case DLX::LDW_RI:
     // ld 4[*%rN], %rX => ld [++imm], %rX
     // ld -4[*%rN], %rX => ld [--imm], %rX
@@ -132,7 +132,8 @@ bool DLXInstPrinter::printAlias(const MCInst *MI, raw_ostream &OS) {
     return printMemoryStoreIncrement(MI, OS, "st.b", 1);
   default:
     return false;
-  }
+  }*/
+  return false;
 }
 
 void DLXInstPrinter::printInst(const MCInst *MI, raw_ostream &OS,

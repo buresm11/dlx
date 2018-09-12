@@ -46,7 +46,7 @@ static MCInstrInfo *createDLXMCInstrInfo() {
 
 static MCRegisterInfo *createDLXMCRegisterInfo(const Triple & /*TT*/) {
   MCRegisterInfo *X = new MCRegisterInfo();
-  InitDLXMCRegisterInfo(X, DLX::RCA, 0, 0, DLX::PC);
+  //InitDLXMCRegisterInfo(X, DLX::RCA, 0, 0, DLX::PC);
   return X;
 }
 

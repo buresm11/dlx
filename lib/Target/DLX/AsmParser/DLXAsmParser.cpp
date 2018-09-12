@@ -1000,7 +1000,7 @@ OperandMatchResultTy
 DLXAsmParser::parseOperand(OperandVector *Operands, StringRef Mnemonic) {
   // Check if the current operand has a custom associated parser, if so, try to
   // custom parse the operand, or fallback to the general approach.
-  OperandMatchResultTy Result = MatchOperandParserImpl(*Operands, Mnemonic);
+  OperandMatchResultTy Result;// = MatchOperandParserImpl(*Operands, Mnemonic);
 
   if (Result == MatchOperand_Success)
     return Result;

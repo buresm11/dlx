@@ -10,6 +10,7 @@
 def ALU_FU  : FuncUnit;
 def LDST_FU : FuncUnit;
 
+def IIPseudo : InstrItinClass;
 def IIC_ALU  : InstrItinClass;
 def IIC_LD   : InstrItinClass;
 def IIC_ST   : InstrItinClass;

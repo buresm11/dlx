@@ -93,53 +93,13 @@ INITIALIZE_PASS(DLXMemAluCombiner, DEBUG_TYPE,
                 "DLX memory ALU combiner pass", false, false)
 
 namespace {
-bool isSpls(uint16_t Opcode) { return DLX::splsIdempotent(Opcode) == Opcode; }
+bool isSpls(uint16_t Opcode) { return false;}
 
 // Determine the opcode for the merged instruction created by considering the
 // old memory operation's opcode and whether the merged opcode will have an
 // immediate offset.
 unsigned mergedOpcode(unsigned OldOpcode, bool ImmediateOffset) {
   switch (OldOpcode) {
-  case DLX::LDW_RI:
-  case DLX::LDW_RR:
-    if (ImmediateOffset)
-      return DLX::LDW_RI;
-    return DLX::LDW_RR;
-  case DLX::LDHs_RI:
-  case DLX::LDHs_RR:
-    if (ImmediateOffset)
-      return DLX::LDHs_RI;
-    return DLX::LDHs_RR;
-  case DLX::LDHz_RI:
-  case DLX::LDHz_RR:
-    if (ImmediateOffset)
-      return DLX::LDHz_RI;
-    return DLX::LDHz_RR;
-  case DLX::LDBs_RI:
-  case DLX::LDBs_RR:
-    if (ImmediateOffset)
-      return DLX::LDBs_RI;
-    return DLX::LDBs_RR;
-  case DLX::LDBz_RI:
-  case DLX::LDBz_RR:
-    if (ImmediateOffset)
-      return DLX::LDBz_RI;
-    return DLX::LDBz_RR;
-  case DLX::SW_RI:
-  case DLX::SW_RR:
-    if (ImmediateOffset)
-      return DLX::SW_RI;
-    return DLX::SW_RR;
-  case DLX::STB_RI:
-  case DLX::STB_RR:
-    if (ImmediateOffset)
-      return DLX::STB_RI;
-    return DLX::STB_RR;
-  case DLX::STH_RI:
-  case DLX::STH_RR:
-    if (ImmediateOffset)
-      return DLX::STH_RI;
-    return DLX::STH_RR;
   default:
     return 0;
   }
@@ -201,29 +161,6 @@ bool InstrUsesReg(const MbbIterator &Instr, const MachineOperand *Reg) {
 // are omitted from this list.
 LPAC::AluCode mergedAluCode(unsigned AluOpcode) {
   switch (AluOpcode) {
-  case DLX::ADD_I_LO:
-  case DLX::ADD_R:
-    return LPAC::ADD;
-  case DLX::SUB_I_LO:
-  case DLX::SUB_R:
-    return LPAC::SUB;
-  case DLX::AND_I_LO:
-  case DLX::AND_R:
-    return LPAC::AND;
-  case DLX::OR_I_LO:
-  case DLX::OR_R:
-    return LPAC::OR;
-  case DLX::XOR_I_LO:
-  case DLX::XOR_R:
-    return LPAC::XOR;
-  case DLX::SHL_R:
-    return LPAC::SHL;
-  case DLX::SRL_R:
-    return LPAC::SRL;
-  case DLX::SRA_R:
-    return LPAC::SRA;
-  case DLX::SA_I:
-  case DLX::SL_I:
   default:
     return LPAC::UNKNOWN;
   }
@@ -301,8 +238,8 @@ bool isSuitableAluInstr(bool IsSpls, const MbbIterator &AluIter,
   if (Op2.isImm()) {
     // It is not a match if the 2nd operand in the ALU operation is an
     // immediate but the ALU operation is not an addition.
-    if (AluIter->getOpcode() != DLX::ADD_I_LO)
-      return false;
+    //if (AluIter->getOpcode() != DLX::ADD_I_LO)
+    //  return false;
 
     if (Offset.isReg() && Offset.getReg() == DLX::R0)
       return true;

@@ -45,30 +45,24 @@ static inline unsigned getDLXRegisterNumbering(unsigned Reg) {
   case DLX::R1:
     return 1;
   case DLX::R2:
-  case DLX::PC:
     return 2;
   case DLX::R3:
     return 3;
   case DLX::R4:
-  case DLX::SP:
     return 4;
   case DLX::R5:
-  case DLX::FP:
     return 5;
   case DLX::R6:
     return 6;
   case DLX::R7:
     return 7;
   case DLX::R8:
-  case DLX::RV:
     return 8;
   case DLX::R9:
     return 9;
   case DLX::R10:
-  case DLX::RR1:
     return 10;
   case DLX::R11:
-  case DLX::RR2:
     return 11;
   case DLX::R12:
     return 12;
@@ -77,7 +71,6 @@ static inline unsigned getDLXRegisterNumbering(unsigned Reg) {
   case DLX::R14:
     return 14;
   case DLX::R15:
-  case DLX::RCA:
     return 15;
   case DLX::R16:
     return 16;
@@ -105,11 +98,11 @@ static inline unsigned getDLXRegisterNumbering(unsigned Reg) {
     return 27;
   case DLX::R28:
     return 28;
-  case DLX::R29:
+  case DLX::FP:
     return 29;
-  case DLX::R30:
+  case DLX::SP:
     return 30;
-  case DLX::R31:
+  case DLX::RA:
     return 31;
   default:
     llvm_unreachable("Unknown register number!");

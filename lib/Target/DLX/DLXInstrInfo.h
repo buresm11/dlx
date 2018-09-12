@@ -72,10 +72,6 @@ public:
                              int64_t &Offset,
                              const TargetRegisterInfo *TRI) const override;
 
-  bool getMemOpBaseRegImmOfsWidth(MachineInstr &LdSt, unsigned &BaseReg,
-                                  int64_t &Offset, unsigned &Width,
-                                  const TargetRegisterInfo *TRI) const;
-
   std::pair<unsigned, unsigned>
   decomposeMachineOperandsTargetFlags(unsigned TF) const override;
 
@@ -140,47 +136,6 @@ public:
                         const DebugLoc &DL,
                         int *BytesAdded = nullptr) const override;
 };
-
-static inline bool isSPLSOpcode(unsigned Opcode) {
-  switch (Opcode) {
-  case DLX::LDBs_RI:
-  case DLX::LDBz_RI:
-  case DLX::LDHs_RI:
-  case DLX::LDHz_RI:
-  case DLX::STB_RI:
-  case DLX::STH_RI:
-    return true;
-  default:
-    return false;
-  }
-}
-
-static inline bool isRMOpcode(unsigned Opcode) {
-  switch (Opcode) {
-  case DLX::LDW_RI:
-  case DLX::SW_RI:
-    return true;
-  default:
-    return false;
-  }
-}
-
-static inline bool isRRMOpcode(unsigned Opcode) {
-  switch (Opcode) {
-  case DLX::LDBs_RR:
-  case DLX::LDBz_RR:
-  case DLX::LDHs_RR:
-  case DLX::LDHz_RR:
-  case DLX::LDWz_RR:
-  case DLX::LDW_RR:
-  case DLX::STB_RR:
-  case DLX::STH_RR:
-  case DLX::SW_RR:
-    return true;
-  default:
-    return false;
-  }
-}
 
 } // namespace llvm
 
